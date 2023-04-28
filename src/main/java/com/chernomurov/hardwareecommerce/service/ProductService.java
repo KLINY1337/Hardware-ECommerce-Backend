@@ -4,6 +4,8 @@ import com.chernomurov.hardwareecommerce.dao.ProductDAO;
 import com.chernomurov.hardwareecommerce.entity.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -15,6 +17,10 @@ public class ProductService {
 
     public Product addNewProduct(Product product) {
         return productDAO.save(product);
+    }
+
+    public List<Product> getAllProducts() {
+        return productDAO.findAll();
     }
 
 
