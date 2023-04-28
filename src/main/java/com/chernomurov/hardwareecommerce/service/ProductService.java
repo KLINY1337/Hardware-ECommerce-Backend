@@ -23,5 +23,7 @@ public class ProductService {
         return productDAO.findAll();
     }
 
-
+    public void deleteProductDetails(Long productId) {
+        productDAO.deleteById(productId);
+    }
 }
