@@ -16,4 +16,6 @@ public class ProductService {
     public Product addNewProduct(Product product) {
         return productDAO.save(product);
     }
+
+
 }
