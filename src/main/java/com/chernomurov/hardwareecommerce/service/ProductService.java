@@ -1,17 +1,18 @@
 package com.chernomurov.hardwareecommerce.service;
 
-import com.chernomurov.hardwareecommerce.dao.ProductDAO;
+import com.chernomurov.hardwareecommerce.dao.ProductDao;
 import com.chernomurov.hardwareecommerce.entity.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProductService {
 
-    private final ProductDAO productDAO;
+    private final ProductDao productDAO;
 
-    public ProductService(ProductDAO productDAO) {
+    public ProductService(ProductDao productDAO) {
         this.productDAO = productDAO;
     }
 
@@ -29,5 +30,24 @@ public class ProductService {
 
     public Product getProductDetailsById(Long productId) {
         return productDAO.findById(productId).get();
+    }
+
+    public List<Product> getProductDetails(boolean isSingleProductCheckout,
+                      Long productId) {
+        if(isSingleProductCheckout) {
+            //TODO going to buy single product
+
+            List<Product> productList = new ArrayList<>();
+
+            Product product = productDAO.findById(productId).get();
+            productList.add(product);
+
+            return productList;
+        }
+        else {
+            //TODO checkout entire cart
+        }
+
+        return new ArrayList<>();
     }
 }

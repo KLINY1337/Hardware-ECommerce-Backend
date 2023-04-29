@@ -55,8 +55,14 @@ public class ProductController {
     }
 
     @GetMapping({"/getProductDetailsById/{productId}"})
-    @PreAuthorize("hasRole('Admin')")
     public Product getProductDetailsById(@PathVariable("productId") Long productId) {
         return productService.getProductDetailsById(productId);
+    }
+
+    @PreAuthorize("hasRole('User')")
+    @GetMapping({"/getProductDetails/{isSingleProductCheckout}/{productId}"})
+    public List<Product> getProductDetails(@PathVariable("isSingleProductCheckout") boolean isSingleProductCheckout,
+                                           @PathVariable("productId") Long productId) {
+        return productService.getProductDetails(isSingleProductCheckout, productId);
     }
 }

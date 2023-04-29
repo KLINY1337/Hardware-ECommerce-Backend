@@ -3,17 +3,17 @@ package com.chernomurov.hardwareecommerce.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.core.annotation.Order;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetails {
+public class OrderDetail {
 
     @Id
     @GeneratedValue
@@ -31,18 +31,27 @@ public class OrderDetails {
 
     private Double orderAmount;
 
-    @One
+    @OneToOne
     private Product product;
 
+    @OneToOne
     private User user;
 
-    public OrderDetails(String orderFullName, String orderFullAddress, String orderContactNumber, String orderAlternateContactNumber, String orderStatus, Double orderAmount) {
+    public OrderDetail(String orderFullName,
+                       String orderFullAddress,
+                       String orderContactNumber,
+                       String orderAlternateContactNumber,
+                       String orderStatus,
+                       Double orderAmount,
+                       Product product,
+                       User user) {
         this.orderFullName = orderFullName;
         this.orderFullAddress = orderFullAddress;
         this.orderContactNumber = orderContactNumber;
         this.orderAlternateContactNumber = orderAlternateContactNumber;
         this.orderStatus = orderStatus;
         this.orderAmount = orderAmount;
-
+        this.product = product;
+        this.user = user;
     }
 }

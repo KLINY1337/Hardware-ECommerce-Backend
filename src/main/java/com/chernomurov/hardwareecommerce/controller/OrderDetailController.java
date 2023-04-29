@@ -1,22 +1,24 @@
 package com.chernomurov.hardwareecommerce.controller;
 
 import com.chernomurov.hardwareecommerce.entity.OrderInput;
-import com.chernomurov.hardwareecommerce.service.OrderDetailsService;
+import com.chernomurov.hardwareecommerce.service.OrderDetailService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class OrderDetailsController {
+public class OrderDetailController {
 
-    private final OrderDetailsService orderDetailsService;
+    private final OrderDetailService orderDetailService;
 
-    public OrderDetailsController(OrderDetailsService orderDetailsService) {
-        this.orderDetailsService = orderDetailsService;
+    public OrderDetailController(OrderDetailService orderDetailService) {
+        this.orderDetailService = orderDetailService;
     }
 
     @PostMapping({"/placeOrder"})
+    @PreAuthorize("hasRole('User')")
     public void placeOrder(@RequestBody OrderInput orderInput) {
-        orderDetailsService.placeOrder(orderInput);
+        orderDetailService.placeOrder(orderInput);
     }
 }
