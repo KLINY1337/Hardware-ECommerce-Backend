@@ -26,4 +26,8 @@ public class ProductService {
     public void deleteProductDetails(Long productId) {
         productDAO.deleteById(productId);
     }
+
+    public Product getProductDetailsById(Long productId) {
+        return productDAO.findById(productId).get();
+    }
 }

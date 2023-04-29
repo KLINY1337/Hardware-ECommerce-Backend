@@ -43,12 +43,20 @@ public class ProductController {
     }
 
     @GetMapping({"/getAllProducts"})
+    @PreAuthorize("hasRole('Admin')")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @DeleteMapping({"/deleteProductDetails/{productId}"})
+    @PreAuthorize("hasRole('Admin')")
     public void deleteProductDetails(@PathVariable("productId") Long productId) {
         productService.deleteProductDetails(productId);
+    }
+
+    @GetMapping({"/getProductDetailsById/{productId}"})
+    @PreAuthorize("hasRole('Admin')")
+    public Product getProductDetailsById(@PathVariable("productId") Long productId) {
+        return productService.getProductDetailsById(productId);
     }
 }
