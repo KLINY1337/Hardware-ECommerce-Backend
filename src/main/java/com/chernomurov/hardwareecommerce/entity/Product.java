@@ -18,6 +18,7 @@ public class Product {
     private Long productId;
 
     private String productName;
+    @Column(length = 2000)
     private String productDescription;
     private Double productDiscountedPrice;
     private Double productActualPrice;
