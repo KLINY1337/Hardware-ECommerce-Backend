@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OrderDetailDao extends JpaRepository<OrderDetail, Long> {
+    List<OrderDetail> findByOrderStatus(String orderStatus);
     List<OrderDetail> findByUser(User user);
 
     List<OrderDetail> findAllByOrderByUserUserName();

@@ -28,10 +28,10 @@ public class OrderDetailController {
     public List<OrderDetail> getOrderDetails(){
         return orderDetailService.getOrderDetails();
     }
-    @GetMapping({"/getAllOrders"})
+    @GetMapping({"/getAllOrders/{status}"})
     @PreAuthorize("hasRole('Admin')")
-    public List<OrderDetail> getAllOrders() {
-        return orderDetailService.getAllOrders();
+    public List<OrderDetail> getAllOrders(@PathVariable("status") String status) {
+        return orderDetailService.getAllOrders(status);
     }
 
     @PreAuthorize("hasRole('Admin')")

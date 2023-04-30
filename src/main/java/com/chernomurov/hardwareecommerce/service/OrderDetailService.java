@@ -63,8 +63,13 @@ public class OrderDetailService {
         return orderDetailDao.findByUser(user);
     }
 
-    public List<OrderDetail> getAllOrders() {
-        return orderDetailDao.findAllByOrderByUserUserName();
+    public List<OrderDetail> getAllOrders(String status) {
+        if (status.equals("All")) {
+            return orderDetailDao.findAllByOrderByUserUserName();
+        }
+        else {
+            return orderDetailDao.findByOrderStatus(status);
+        }
     }
 
     public void markOrderAsDelivered(Long orderId) {
