@@ -9,6 +9,8 @@ import com.chernomurov.hardwareecommerce.entity.Product;
 import com.chernomurov.hardwareecommerce.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartService {
 
@@ -38,5 +40,11 @@ public class CartService {
             return cartDao.save(cart);
         }
         return null;
+    }
+
+    public List<Cart> getCartDetails() {
+        User user = userDao.findById(JwtRequestFilter.CURRENT_USER).get();
+
+        return cartDao.findByUser(user);
     }
 }
