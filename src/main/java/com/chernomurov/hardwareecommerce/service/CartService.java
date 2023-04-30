@@ -35,9 +35,11 @@ public class CartService {
         }
 
         if (product != null && user != null) {
-            Cart cart = new Cart(product, user);
 
-            return cartDao.save(cart);
+            if (!cartDao.existsByProduct(product)) {
+                Cart cart = new Cart(product, user);
+                return cartDao.save(cart);
+            }
         }
         return null;
     }
