@@ -49,4 +49,8 @@ public class CartService {
 
         return cartDao.findByUser(user);
     }
+
+    public void deleteCartItem(Long cartId) {
+        cartDao.deleteById(cartId);
+    }
 }
