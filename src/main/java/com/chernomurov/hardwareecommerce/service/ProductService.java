@@ -1,21 +1,32 @@
 package com.chernomurov.hardwareecommerce.service;
 
+import com.chernomurov.hardwareecommerce.configuration.JwtRequestFilter;
+import com.chernomurov.hardwareecommerce.dao.CartDao;
 import com.chernomurov.hardwareecommerce.dao.ProductDao;
+import com.chernomurov.hardwareecommerce.dao.UserDao;
+import com.chernomurov.hardwareecommerce.entity.Cart;
 import com.chernomurov.hardwareecommerce.entity.Product;
+import com.chernomurov.hardwareecommerce.entity.User;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
 
     private final ProductDao productDAO;
+    private final UserDao userDao;
+    private final CartDao cartDao;
 
-    public ProductService(ProductDao productDAO) {
+    public ProductService(ProductDao productDAO,
+                          UserDao userDao, CartDao cartDao) {
         this.productDAO = productDAO;
+        this.userDao = userDao;
+        this.cartDao = cartDao;
     }
 
     public Product addNewProduct(Product product) {
@@ -53,8 +64,8 @@ public class ProductService {
 
     public List<Product> getProductDetails(boolean isSingleProductCheckout,
                       Long productId) {
-        if(isSingleProductCheckout) {
-            //TODO going to buy single product
+        if(isSingleProductCheckout && productId != -1) {
+
 
             List<Product> productList = new ArrayList<>();
 
@@ -64,9 +75,13 @@ public class ProductService {
             return productList;
         }
         else {
-            //TODO checkout entire cart
+            User user = userDao.findById(JwtRequestFilter.CURRENT_USER).get();
+
+            List<Cart> carts = cartDao.findByUser(user);
+
+            return carts.stream().map(x -> x.getProduct()).collect(Collectors.toList());
+
         }
 
-        return new ArrayList<>();
     }
 }
