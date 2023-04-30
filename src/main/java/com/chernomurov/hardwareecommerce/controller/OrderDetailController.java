@@ -23,7 +23,7 @@ public class OrderDetailController {
                            @PathVariable("isSingleProductCheckout") boolean isSingleProductCheckout) {
         orderDetailService.placeOrder(orderInput, isSingleProductCheckout);
     }
-    @GetMapping({"/ "})
+    @GetMapping({"/getOrderDetails"})
     @PreAuthorize("hasRole('User')")
     public List<OrderDetail> getOrderDetails(){
         return orderDetailService.getOrderDetails();
