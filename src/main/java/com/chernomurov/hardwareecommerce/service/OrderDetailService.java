@@ -6,6 +6,7 @@ import com.chernomurov.hardwareecommerce.dao.OrderDetailDao;
 import com.chernomurov.hardwareecommerce.dao.ProductDao;
 import com.chernomurov.hardwareecommerce.dao.UserDao;
 import com.chernomurov.hardwareecommerce.entity.*;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,4 +62,8 @@ public class OrderDetailService {
 
         return orderDetailDao.findByUser(user);
     }
-}
+
+    public List<OrderDetail> getAllOrders() {
+        return orderDetailDao.findAllByOrderByUserUserName();
+    }
+ }

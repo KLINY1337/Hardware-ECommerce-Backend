@@ -36,7 +36,7 @@ public class CartService {
 
         if (product != null && user != null) {
 
-            if (!cartDao.existsByProduct(product)) {
+            if (!cartDao.existsByProductAndUser(product, user)) {
                 Cart cart = new Cart(product, user);
                 return cartDao.save(cart);
             }

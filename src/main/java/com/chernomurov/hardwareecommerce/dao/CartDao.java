@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CartDao extends JpaRepository<Cart, Long> {
-    boolean existsByProduct(Product product);
+    boolean existsByProductAndUser(Product product, User user);
+
     List<Cart> findByUser(User user);
 }
