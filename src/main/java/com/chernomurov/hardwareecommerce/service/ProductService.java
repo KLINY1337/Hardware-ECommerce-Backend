@@ -2,6 +2,8 @@ package com.chernomurov.hardwareecommerce.service;
 
 import com.chernomurov.hardwareecommerce.dao.ProductDao;
 import com.chernomurov.hardwareecommerce.entity.Product;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,23 @@ public class ProductService {
 
     public Product addNewProduct(Product product) {
         return productDAO.save(product);
+    }
+
+    public List<Product> getAllProducts(int pageNumber, String searchKey) {
+
+        if (pageNumber != -1){
+            Pageable pageable = PageRequest.of(pageNumber, 8);
+
+            if (searchKey.equals("")) {
+                return productDAO.findAll(pageable).getContent();
+            }
+            else {
+                return productDAO.findByProductNameContainsIgnoreCaseOrProductDescriptionContainsIgnoreCase(searchKey, searchKey, pageable);
+            }
+        }
+        else {
+            return productDAO.findAll();
+        }
     }
 
     public List<Product> getAllProducts() {
