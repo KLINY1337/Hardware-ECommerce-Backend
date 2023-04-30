@@ -55,4 +55,10 @@ public class OrderDetailService {
             cartDao.deleteAllById(carts.stream().map(Cart::getCartId).collect(Collectors.toList()));
         }
     }
+
+    public List<OrderDetail> getOrderDetails() {
+        User user = userDao.findById(JwtRequestFilter.CURRENT_USER).get();
+
+        return orderDetailDao.findByUser(user);
+    }
 }

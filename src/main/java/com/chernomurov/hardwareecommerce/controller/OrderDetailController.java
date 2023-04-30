@@ -1,12 +1,12 @@
 package com.chernomurov.hardwareecommerce.controller;
 
+import com.chernomurov.hardwareecommerce.entity.OrderDetail;
 import com.chernomurov.hardwareecommerce.entity.OrderInput;
 import com.chernomurov.hardwareecommerce.service.OrderDetailService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class OrderDetailController {
@@ -22,5 +22,10 @@ public class OrderDetailController {
     public void placeOrder(@RequestBody OrderInput orderInput,
                            @PathVariable("isSingleProductCheckout") boolean isSingleProductCheckout) {
         orderDetailService.placeOrder(orderInput, isSingleProductCheckout);
+    }
+    @GetMapping({"/ "})
+    @PreAuthorize("hasRole('User')")
+    public List<OrderDetail> getOrderDetails(){
+        return orderDetailService.getOrderDetails();
     }
 }
