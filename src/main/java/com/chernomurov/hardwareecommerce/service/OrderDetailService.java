@@ -66,4 +66,13 @@ public class OrderDetailService {
     public List<OrderDetail> getAllOrders() {
         return orderDetailDao.findAllByOrderByUserUserName();
     }
+
+    public void markOrderAsDelivered(Long orderId) {
+        OrderDetail orderDetail = orderDetailDao.findById(orderId).get();
+
+        if (orderDetail != null) {
+            orderDetail.setOrderStatus("Delivered");
+            orderDetailDao.save(orderDetail);
+        }
+    }
  }
