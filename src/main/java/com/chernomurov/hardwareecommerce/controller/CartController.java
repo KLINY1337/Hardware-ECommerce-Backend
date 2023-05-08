@@ -13,16 +13,13 @@ import java.util.List;
 
 @RestController
 public class CartController {
-
     private final CartService cartService;
     private final CartDao cartDao;
-
     public CartController(CartService cartService,
                           CartDao cartDao) {
         this.cartService = cartService;
         this.cartDao = cartDao;
     }
-
     @PreAuthorize("hasRole('User')")
     @GetMapping({"/addToCart/{productId}"})
     public Cart addToCart(@PathVariable("productId") Long productId) {

@@ -10,13 +10,10 @@ import java.util.List;
 
 @RestController
 public class OrderDetailController {
-
     private final OrderDetailService orderDetailService;
-
     public OrderDetailController(OrderDetailService orderDetailService) {
         this.orderDetailService = orderDetailService;
     }
-
     @PostMapping({"/placeOrder/{isSingleProductCheckout}"})
     @PreAuthorize("hasRole('User')")
     public void placeOrder(@RequestBody OrderInput orderInput,
@@ -33,7 +30,6 @@ public class OrderDetailController {
     public List<OrderDetail> getAllOrders(@PathVariable("status") String status) {
         return orderDetailService.getAllOrders(status);
     }
-
     @PreAuthorize("hasRole('Admin')")
     @GetMapping({"/markOrderAsDelivered/{orderId}"})
     public void markOrderAsDelivered(@PathVariable("orderId") Long orderId) {
